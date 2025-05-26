@@ -23,7 +23,8 @@
 ## Screenshots
 
 ![Books Search Example](./public/Screenshot1.png)  
-![Books Search Layout](./public/Screenshot2.png)  
+![Books Search Layout](./public/Screenshot2.png) 
+![Books Search Example](./public/Screenshot3.png) 
 
 ---
 
