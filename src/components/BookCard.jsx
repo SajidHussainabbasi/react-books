@@ -1,54 +1,42 @@
-import React, { useState } from 'react';
-import './BookCard.css';
+import React from 'react';
+import { useBookContext } from '../hooks/useBookContext';
+import './BookCard.css'; // optional styling
 
 const BookCard = ({ book }) => {
-  // State for like and dislike counts
-  const [likeCount, setLikeCount] = useState(0);
-  const [dislikeCount, setDislikeCount] = useState(0);
-  // State to track if user liked or disliked (to prevent double counts)
-  const [userAction, setUserAction] = useState(null); // 'like', 'dislike' or null
+  const {
+    addToBasket,
+    removeFromBasket,
+    increaseQuantity,
+    decreaseQuantity,
+    basket,
+  } = useBookContext();
 
-  const handleLike = () => {
-    if (userAction === 'like') return; // prevent double like
-    if (userAction === 'dislike') {
-      setDislikeCount(dislikeCount - 1);
-    }
-    setLikeCount(likeCount + 1);
-    setUserAction('like');
-  };
-
-  const handleDislike = () => {
-    if (userAction === 'dislike') return; // prevent double dislike
-    if (userAction === 'like') {
-      setLikeCount(likeCount - 1);
-    }
-    setDislikeCount(dislikeCount + 1);
-    setUserAction('dislike');
-  };
+  const inBasket = basket.find((item) => item.title === book.title);
+  const quantity = inBasket?.quantity || 0;
 
   return (
-    <div className="book">
+    <div className="book-card">
       {book.cover && <img src={book.cover} alt={book.title} />}
-      <h2>{book.title}</h2>
-      <p><strong>Author:</strong> {book.author}</p>
-      <p><strong>First Published:</strong> {book.year}</p>
-      <p><strong>Languages:</strong> {book.language}</p>
-      <div className="icons">
-        <button
-          className={userAction === 'like' ? 'liked' : ''}
-          onClick={handleLike}
-        >
-          ❤️ {likeCount}
-        </button>
-        <button
-          className={userAction === 'dislike' ? 'disliked' : ''}
-          onClick={handleDislike}
-        >
-          👎 {dislikeCount}
-        </button>
-      </div>
+      <h3>{book.title}</h3>
+      <p>Author: {book.author}</p>
+      <p>Year: {book.year}</p>
+      <p>Language: {book.language}</p>
+
+      <button onClick={() => addToBasket(book)}>Add to Basket</button>
+      {inBasket && (
+        <>
+          <div>
+            <button onClick={() => decreaseQuantity(book.title)}>-</button>
+            <span style={{ margin: '0 10px' }}>Quantity: {quantity}</span>
+            <button onClick={() => increaseQuantity(book.title)}>+</button>
+          </div>
+          <button onClick={() => removeFromBasket(book.title)} style={{ marginTop: '5px' }}>
+            Remove from Basket
+          </button>
+        </>
+      )}
     </div>
   );
 };
 
-export default BookCard;
+export default BookCard

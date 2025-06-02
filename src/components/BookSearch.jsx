@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import BookCard from './BookCard';
 import './BookSearch.css';
 import { fetchBookByTitle } from '../api-calls/api-calls'; 
+import { useBookContext } from '../hooks/useBookContext';
+import { useNavigate } from 'react-router-dom';
+import { SlBasket } from 'react-icons/sl';  // Import the basket icon
 
 const defaultBooks = [
   {
@@ -31,6 +34,9 @@ const BookSearch = () => {
   const [query, setQuery] = useState('');
   const [books, setBooks] = useState(defaultBooks);
   const [error, setError] = useState('');
+  
+  const { basket } = useBookContext();
+  const navigate = useNavigate();
 
   const fetchBook = async () => {
     if (!query.trim()) {
@@ -70,6 +76,27 @@ const BookSearch = () => {
   return (
     <div className="container">
       <h1>Book Search</h1>
+
+      {/* Basket Icon with Label */}
+      <div
+        className="basket-icon"
+        onClick={() => navigate('/basket')}
+        style={{
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          marginBottom: '1rem',
+          fontSize: '20px',
+          color: '#333',
+          userSelect: 'none',
+        }}
+        title="Go to Basket"
+      >
+        <span style={{ marginRight: '8px' }}>My Basket</span>
+        <SlBasket />
+        <span style={{ marginLeft: '6px', fontWeight: 'bold' }}>{basket.length}</span>
+      </div>
+
       <div className="search-bar">
         <input
           type="text"
