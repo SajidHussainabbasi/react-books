@@ -3,6 +3,8 @@ import { BooksContext } from '../context/BooksContext';
 
 export const BookProvider = ({ children }) => {
   const [basket, setBasket] = useState([]);
+  const [likes, setLikes] = useState({});
+  const [dislikes, setDislikes] = useState({});
 
   const addToBasket = (book) => {
     setBasket((prev) => {
@@ -38,9 +40,27 @@ export const BookProvider = ({ children }) => {
     );
   };
 
+  const likeBook = (title) => {
+    setLikes((prev) => ({ ...prev, [title]: (prev[title] || 0) + 1 }));
+  };
+
+  const dislikeBook = (title) => {
+    setDislikes((prev) => ({ ...prev, [title]: (prev[title] || 0) + 1 }));
+  };
+
   return (
     <BooksContext.Provider
-      value={{ basket, addToBasket, removeFromBasket, increaseQuantity, decreaseQuantity }}
+      value={{
+        basket,
+        addToBasket,
+        removeFromBasket,
+        increaseQuantity,
+        decreaseQuantity,
+        likes,
+        dislikes,
+        likeBook,
+        dislikeBook,
+      }}
     >
       {children}
     </BooksContext.Provider>
