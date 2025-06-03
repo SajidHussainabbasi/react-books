@@ -1,11 +1,12 @@
 # 📚 React Books
 
-> The **React Books** project allows users to search for books by title using the Open Library API and Axios. When a user enters a book title, the app fetches and displays key information such as the book’s image, name, author(s), first publication year, and languages. Additionally, users can like or dislike books as an interactive feature.
+> The **React Books** project allows users to search for books by title using the Open Library API and Axios. When a user enters a book title, the app fetches and displays key information such as the book’s image, name, author(s), first publication year, and languages. Additionally, users can like or dislike books as an interactive feature and My Basket.
 
 - [📚 React Books](#-react-books)
   - [General Info](#general-info)
   - [Screenshots](#screenshots)
   - [Features](#features)
+  - [My Basket](#my-basket)
   - [Code Example](#code-example)
   - [Technologies](#technologies)
   - [Status](#status)
@@ -41,6 +42,25 @@
 - 🌐 Axios for API requests
 - 🧱 Modular components (React)
 - ⚠️ Error handling with fallback to default books
+- My Basket
+
+---
+
+## My Basket
+
+> The **My Basket** section stores all the books that a user has liked. It functions as a personalized list, allowing users to revisit their favorite titles easily. This adds an element of persistence and user engagement, acting like a reading wishlist and add and remove from my Basket.
+
+**Current Capabilities:**
+
+- 💾 Save liked books during session
+- 🧾 View all liked books in a dedicated “My Basket” section
+- 🗑️ Optionally remove books from the basket (if implemented)
+
+**Possible Improvements:**
+
+- 🔐 Persist liked books to local storage or a backend
+- 📲 Allow sharing of a user's basket
+- 📚 Add sorting/filtering by author, year, etc.
 
 ---
 
@@ -53,6 +73,8 @@
 ## Technologies
 
 - React.js (with Hooks)
+- useContext
+- React router dom
 - Axios
 - HTML5
 - CSS3 (Grid & Flexbox)

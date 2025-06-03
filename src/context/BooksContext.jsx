@@ -5,6 +5,10 @@ export const BooksContext = createContext();
 export const BooksProvider = ({ children }) => {
   const [basket, setBasket] = useState([]);
 
+  // Add likes and dislikes state, stored by book title
+  const [likes, setLikes] = useState({});
+  const [dislikes, setDislikes] = useState({});
+
   const addToBasket = (book) => {
     setBasket((prev) => {
       const existing = prev.find((item) => item.title === book.title);
@@ -45,6 +49,16 @@ export const BooksProvider = ({ children }) => {
     );
   };
 
+  // New: increment like count for book title
+  const likeBook = (title) => {
+    setLikes((prev) => ({ ...prev, [title]: (prev[title] || 0) + 1 }));
+  };
+
+  // New: increment dislike count for book title
+  const dislikeBook = (title) => {
+    setDislikes((prev) => ({ ...prev, [title]: (prev[title] || 0) + 1 }));
+  };
+
   return (
     <BooksContext.Provider
       value={{
@@ -53,6 +67,10 @@ export const BooksProvider = ({ children }) => {
         removeFromBasket,
         increaseQuantity,
         decreaseQuantity,
+        likes,
+        dislikes,
+        likeBook,
+        dislikeBook,
       }}
     >
       {children}
